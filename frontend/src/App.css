@@ -1,0 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@700&family=Open+Sans&family=Roboto&family=Ubuntu:wght@400;500&display=swap");
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  background-image: url("../src/backgroundImage.jpg");
+}
