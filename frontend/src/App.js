@@ -5,7 +5,7 @@ import "./index.css";
 import HomePage from "./Pages/HomePage";
 import ChatPage from "./Pages/ChatPage";
 import React from "react";
-import { ToastContainer } from "react-toastify";
+//import { ToastContainer } from "react-toastify";
 
 function App() {
   return (

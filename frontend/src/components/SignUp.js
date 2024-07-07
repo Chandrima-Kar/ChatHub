@@ -59,7 +59,12 @@ const Signup = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    postDetails(file);
+    if (file) {
+      postDetails(file);
+    } else {
+      // If no file is selected, set profileImage to null (to use default image)
+      setFormData({ ...formData, profileImage: null });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -77,11 +82,12 @@ const Signup = () => {
         },
       };
       const { name, email, password, profileImage } = formData;
-      const { data } = await axios.post(
-        "/api/user",
-        { name, email, password, profileImage },
-        config
-      );
+      const postData = profileImage
+        ? { name, email, password, profileImage }
+        : { name, email, password };
+
+      const { data } = await axios.post("/api/user", postData, config);
+
       toast.success("Registration is successful");
       localStorage.setItem("userInfo", JSON.stringify(data));
 

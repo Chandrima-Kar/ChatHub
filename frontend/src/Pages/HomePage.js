@@ -1,18 +1,29 @@
 // src/Pages/HomePage.js
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Signup from "../components/SignUp";
 import Login from "../components/Login";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+
+    if (user) {
+      navigate("/chats");
+    }
+  }, [navigate]);
+
   const [activeTab, setActiveTab] = useState("login");
 
   return (
     <div>
       <div
-        className="bg-cover bg-center h-screen flex bg-black"
+        className="bg-cover bg-center h-screen flex"
         // style={{ backgroundImage: `url(/bg.jpg)` }}
       >
         <div className="container min-w-[1380px] flex justify-center items-center flex-col">
