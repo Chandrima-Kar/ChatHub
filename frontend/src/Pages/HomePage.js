@@ -1,6 +1,10 @@
+// src/Pages/HomePage.js
+
 import React, { useState } from "react";
-import Signup from "./SignUpPage";
-import Login from "./LoginPage";
+import Signup from "../components/SignUp";
+import Login from "../components/Login";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState("login");
@@ -13,7 +17,7 @@ const HomePage = () => {
       >
         <div className="container min-w-[1380px] flex justify-center items-center flex-col">
           <div className="text min-w-xl">
-            <h1 className=" text-white font-semibold text-center text-4xl">
+            <h1 className="text-white font-semibold text-center text-4xl">
               Welcome to ChatHub
             </h1>
             <div className="mt-4 flex justify-center space-x-4">
@@ -44,6 +48,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      {/* <ToastContainer /> */}
     </div>
   );
 };

@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +10,8 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,14 +21,40 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     console.log("Login Data:", formData);
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const { email, password } = formData;
+      const { data } = await axios.post(
+        "/api/user/login",
+        {
+          email,
+          password,
+        },
+        config
+      );
+
+      toast.success("Login successful");
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setLoading(false);
+      navigate("/chats");
+    } catch (error) {
+      toast.error("Error occurred during login");
+      setLoading(false);
+    }
   };
 
   return (
     <div className="container mx-auto p-4 bg-white">
-      <h2 className="text-2xl font-bold mb-4 ">Login</h2>
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block mb-1">Email:</label>
@@ -59,8 +90,9 @@ const Login = () => {
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded"
+          disabled={loading}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>

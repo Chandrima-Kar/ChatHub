@@ -1,8 +1,11 @@
+// src/App.js
+
 import { Routes, Route } from "react-router-dom";
 import "./index.css";
 import HomePage from "./Pages/HomePage";
 import ChatPage from "./Pages/ChatPage";
 import React from "react";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -11,6 +14,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/chats" element={<ChatPage />} />
       </Routes>
+      {/* <ToastContainer /> */}
     </div>
   );
 }

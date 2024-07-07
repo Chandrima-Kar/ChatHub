@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +14,40 @@ const Signup = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const postDetails = (pics) => {
+    if (!pics) {
+      toast.error("Please select an image!");
+      return;
+    }
+    if (pics.type !== "image/jpeg" && pics.type !== "image/png") {
+      toast.error("Please select a valid image (JPEG or PNG)!");
+      return;
+    }
+
+    const data = new FormData();
+    data.append("file", pics);
+    data.append("upload_preset", "chathub"); // Replace with your Cloudinary upload preset
+    data.append("cloud_name", "duvvl9zhr"); // Replace with your Cloudinary cloud name
+
+    fetch("https://api.cloudinary.com/v1_1/duvvl9zhr/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFormData({ ...formData, profileImage: data.url.toString() });
+        setLoading(false);
+        toast.success("Image uploaded successfully!");
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+        toast.error("Image upload failed!");
+      });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,25 +58,45 @@ const Signup = () => {
   };
 
   const handleImageChange = (e) => {
-    setFormData({
-      ...formData,
-      profileImage: e.target.files[0],
-    });
+    const file = e.target.files[0];
+    postDetails(file);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
+    setLoading(true); // Set loading state to true
     console.log("Form Data:", formData);
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { name, email, password, profileImage } = formData;
+      const { data } = await axios.post(
+        "/api/user",
+        { name, email, password, profileImage },
+        config
+      );
+      toast.success("Registration is successful");
+      localStorage.setItem("userInfo", JSON.stringify(data));
+
+      setLoading(false);
+      navigate("/chats");
+    } catch (error) {
+      toast.error("An error occurred!");
+      setLoading(false);
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-10  rounded shadow-lg w-full max-w-2xl"
+      className="space-y-4 bg-white p-10 rounded shadow-lg w-full max-w-2xl"
     >
       <div>
         <label className="block mb-1">Name:</label>
@@ -116,8 +173,9 @@ const Signup = () => {
       <button
         type="submit"
         className="w-full bg-blue-500 text-white p-2 rounded"
+        disabled={loading} // Disable the button when loading
       >
-        Sign Up
+        {loading ? "Signing Up..." : "Sign Up"}
       </button>
     </form>
   );
