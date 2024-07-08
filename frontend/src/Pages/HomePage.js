@@ -1,67 +1,61 @@
-// src/Pages/HomePage.js
+import {
+  Box,
+  Container,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import Login from "../components/Authentication/Login";
+import Signup from "../components/Authentication/SignUp";
 
-import React, { useEffect, useState } from "react";
-import Signup from "../components/SignUp";
-import Login from "../components/Login";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-
-const HomePage = () => {
+function Homepage() {
   const navigate = useNavigate();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
 
-    if (user) {
-      navigate("/chats");
-    }
+    if (user) navigate("/chats");
   }, [navigate]);
 
-  const [activeTab, setActiveTab] = useState("login");
-
   return (
-    <div>
-      <div
-        className="bg-cover bg-center h-screen flex"
-        // style={{ backgroundImage: `url(/bg.jpg)` }}
+    <Container maxW="xl" centerContent>
+      <Box
+        d="flex"
+        justifyContent="center"
+        p={3}
+        bg="white"
+        w="100%"
+        m="40px 0 15px 0"
+        borderRadius="lg"
+        borderWidth="1px"
       >
-        <div className="container min-w-[1380px] flex justify-center items-center flex-col">
-          <div className="text min-w-xl">
-            <h1 className="text-white font-semibold text-center text-4xl">
-              Welcome to ChatHub
-            </h1>
-            <div className="mt-4 flex justify-center space-x-4">
-              <button
-                className={`p-2 font-semibold ${
-                  activeTab === "login"
-                    ? "bg-blue-500 text-white"
-                    : "bg-white text-black"
-                }`}
-                onClick={() => setActiveTab("login")}
-              >
-                Login
-              </button>
-              <button
-                className={`p-2 font-semibold ${
-                  activeTab === "signup"
-                    ? "bg-blue-500 text-white"
-                    : "bg-white text-black"
-                }`}
-                onClick={() => setActiveTab("signup")}
-              >
-                Sign Up
-              </button>
-            </div>
-            <div className="mt-6 w-full max-w-md mx-auto">
-              {activeTab === "login" ? <Login /> : <Signup />}
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* <ToastContainer /> */}
-    </div>
+        <Text fontSize="4xl" fontFamily="Work sans">
+          Talk-A-Tive
+        </Text>
+      </Box>
+      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
+        <Tabs isFitted variant="soft-rounded">
+          <TabList mb="1em">
+            <Tab>Login</Tab>
+            <Tab>Sign Up</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <Login />
+            </TabPanel>
+            <TabPanel>
+              <Signup />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Box>
+    </Container>
   );
-};
+}
 
-export default HomePage;
+export default Homepage;
