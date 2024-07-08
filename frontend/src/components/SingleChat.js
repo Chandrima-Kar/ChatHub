@@ -201,17 +201,17 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             flexDir="column"
             justifyContent="flex-end"
             p={3}
-            bg="#E8E8E8"
+            bg="#010b14"
             w="100%"
-            h="100%"
+            h="88%"
             borderRadius="lg"
             overflowY="hidden"
           >
             {loading ? (
               <Spinner
                 size="xl"
-                w={20}
-                h={20}
+                w={10}
+                h={10}
                 alignSelf="center"
                 margin="auto"
               />
@@ -241,8 +241,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               )}
               <Input
                 variant="filled"
-                bg="#E0E0E0"
+                justifyContent={"flex-end"}
+                bg="black"
                 placeholder="Enter a message.."
+                textColor={"white"}
                 value={newMessage}
                 onChange={typingHandler}
               />
@@ -251,7 +253,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         </>
       ) : (
         // to get socket.io on same page
-        <div className="flex items-center justify-center h-full bg-black">
+        <div className="flex items-center justify-center bg-black min-h-full">
           <div className="text-3xl pb-3 font-lato text-white">
             Click on a user to start chatting
           </div>

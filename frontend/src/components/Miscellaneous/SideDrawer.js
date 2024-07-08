@@ -130,7 +130,7 @@ function SideDrawer() {
   return (
     <>
       <div
-        className="flex flex-row justify-between  w-full px-4 py-4 border-2 border-white"
+        className="flex flex-row justify-between  w-full px-2 py-4 border-2 border-white"
         // d="flex"
         // flexDir="Row"
         // justifyContent="space-between"
@@ -142,13 +142,13 @@ function SideDrawer() {
       >
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
           <Button variant="ghost" onClick={onOpen}>
-            <i className="fas fa-search"></i>
+            <i className="fas fa-search text-white"></i>
             <div className="p-2">
-              <h1 className="text-lg font-ubuntu">Search User</h1>
+              <h1 className="text-lg font-ubuntu text-white">Search User</h1>
             </div>
           </Button>
         </Tooltip>
-        <div className="text-2xl font-montserrat p-2">ChatHub</div>
+        <div className="text-2xl font-montserrat p-2 text-white">ChatHub</div>
         <div>
           <Menu>
             <MenuButton p={1}>
@@ -156,7 +156,7 @@ function SideDrawer() {
                 count={notification.length}
                 effect={Effect.SCALE}
               /> */}
-              <BellIcon fontSize="2xl" m={1} />
+              <BellIcon fontSize="2xl" m={1} textColor={"white"} />
             </MenuButton>
             <MenuList pl={2}>
               {!notification.length && "No New Messages"}
@@ -176,7 +176,7 @@ function SideDrawer() {
             </MenuList>
           </Menu>
           <Menu>
-            <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
+            <MenuButton as={Button} bg="black" rightIcon={<ChevronDownIcon />}>
               <Avatar
                 size="sm"
                 cursor="pointer"

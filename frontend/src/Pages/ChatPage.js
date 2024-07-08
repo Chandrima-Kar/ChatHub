@@ -9,7 +9,7 @@ const Chatpage = () => {
   const { user } = ChatState();
 
   return (
-    <div className="w-full h-screen flex flex-col">
+    <div className="w-full h-screen flex flex-col bg-black">
       {user && <SideDrawer />}
       <div className="flex justify-between w-full h-full p-10 flex-row">
         {user && <MyChats fetchAgain={fetchAgain} />}
