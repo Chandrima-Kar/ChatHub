@@ -82,7 +82,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         };
         setNewMessage("");
         const { data } = await axios.post(
-          "/api/messages",
+          "/api/messages/",
           {
             content: newMessage,
             chatId: selectedChat,
@@ -162,18 +162,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     <>
       {selectedChat ? (
         <>
-          <Text
-            fontSize={{ base: "28px", md: "30px" }}
-            pb={3}
-            px={2}
-            w="100%"
-            fontFamily="Work sans"
-            d="flex"
-            justifyContent={{ base: "space-between" }}
-            alignItems="center"
+          <div
+            className="text-3xl md:text-2xl pb-1 px-1 w-full font-montserrat flex justify-between align-center text-white"
+            // fontSize={{ base: "28px", md: "30px" }}
+            // pb={3}
+            // px={2}
+            // w="100%"
+            // fontFamily="Work sans"
+            // d="flex"
+            // justifyContent={{ base: "space-between" }}
+            // alignItems="center"
           >
             <IconButton
-              d={{ base: "flex", md: "none" }}
+              className="flex md:flex-none "
               icon={<ArrowBackIcon />}
               onClick={() => setSelectedChat("")}
             />
@@ -195,7 +196,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   />
                 </>
               ))}
-          </Text>
+          </div>
           <Box
             d="flex"
             flexDir="column"
