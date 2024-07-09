@@ -4,6 +4,7 @@
 //latestMessage
 //groupAdmin
 const mongoose = require("mongoose");
+const Message = require("../models/messageModel");
 
 const ChatModel = mongoose.Schema(
   {

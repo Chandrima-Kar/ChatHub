@@ -1,6 +1,7 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Box, Stack, Text } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
+import { FaUserGroup } from "react-icons/fa6";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getSender } from "../config/ChatLogics";
@@ -8,12 +9,11 @@ import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./Miscellaneous/GroupChatModal.js";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
+import { Avatar } from "@chakra-ui/react";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState(null);
-
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
-
   const toast = useToast();
 
   const fetchChats = async () => {
@@ -27,7 +27,6 @@ const MyChats = ({ fetchAgain }) => {
       };
 
       const { data } = await axios.get("/api/chat", config);
-      console.log(data);
       setChats(data);
     } catch (error) {
       toast({
@@ -45,26 +44,15 @@ const MyChats = ({ fetchAgain }) => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setLoggedUser(userInfo);
     fetchChats();
-    // eslint-disable-next-line
   }, [fetchAgain, user]);
 
   return (
     <div
-      className={`flex flex-col items-center p-3 bg-black rounded-lg border border-gray-700
-      ${selectedChat ? "hidden md:flex" : "flex"} md:w-[31%] w-full`}
+      className={`flex flex-col items-center p-3 bg-black rounded-lg border border-gray-700 ${
+        selectedChat ? "hidden md:flex" : "flex"
+      } md:w-[31%] w-full`}
     >
-      <div
-        className="pb-4 px-4 text-2xl md:text-3xl font-ubuntu w-full justify-between items-center text-white"
-        // pb={3}
-        // px={4}
-        // fontSize={{ base: "28px", md: "30px" }}
-        // fontFamily="Work sans"
-        // display="flex"
-        // w="100%"
-        // justifyContent="space-between"
-        // alignItems="center"
-        // textColor={"white"}
-      >
+      <div className="pb-4 px-4 text-2xl md:text-3xl font-ubuntu w-full justify-between items-center text-white flex">
         My Chats
         <GroupChatModal>
           <Button
@@ -80,17 +68,7 @@ const MyChats = ({ fetchAgain }) => {
           </Button>
         </GroupChatModal>
       </div>
-      <div
-        className="flex flex-col bg-[#010b14] p-3 w-full h-full rounded-lg overflow-y-hidden"
-        // display="flex"
-        // flexDirection="column"
-        // p={3}
-        // bg="black"
-        // w="100%"
-        // h="100%"
-        // borderRadius="lg"
-        // overflowY="hidden"
-      >
+      <div className="flex flex-col bg-[#010b14] p-3 w-full h-full rounded-lg overflow-y-hidden">
         {chats ? (
           <Stack
             overflowY="scroll"
@@ -98,8 +76,8 @@ const MyChats = ({ fetchAgain }) => {
               "::-webkit-scrollbar": {
                 display: "none",
               },
-              "-ms-overflow-style": "none" /* IE and Edge */,
-              "scrollbar-width": "none" /* Firefox */,
+              "-ms-overflow-style": "none",
+              "scrollbar-width": "none",
             }}
           >
             {chats.map((chat) => (
@@ -113,19 +91,44 @@ const MyChats = ({ fetchAgain }) => {
                 borderRadius="lg"
                 key={chat._id}
               >
-                <Text>
-                  {!chat.isGroupChat
-                    ? getSender(loggedUser, chat.users)
-                    : chat.chatName}
-                </Text>
-                {chat.latestMessage && chat.latestMessage.sender && (
-                  <Text fontSize="xs">
-                    <b>{chat.latestMessage.sender.name} : </b>
-                    {chat.latestMessage.content.length > 50
-                      ? chat.latestMessage.content.substring(0, 51) + "..."
-                      : chat.latestMessage.content}
-                  </Text>
-                )}
+                <div className="flex flex-col">
+                  {!chat.isGroupChat ? (
+                    getSender(loggedUser, chat.users)
+                  ) : (
+                    <div className="flex flex-row">
+                      {chat.chatName}
+
+                      <FaUserGroup className="mt-1 ml-2" />
+                    </div>
+                  )}
+                  {chat.latestMessage && chat.latestMessage.length > 0 && (
+                    <div className="text-white text-sm flex-row">
+                      {chat.latestMessage.map((message) => (
+                        <div
+                          key={message._id}
+                          className="flex flex-row gap-x-2"
+                        >
+                          <Avatar
+                            size="xs"
+                            className="bg-black"
+                            _hover={{
+                              bg: "#010b14",
+                              color: "white",
+                            }}
+                            cursor="pointer"
+                            src={message.sender.pic}
+                          />
+                          <h1 className="text-sm text-blue-500 font-semibold">
+                            {message.sender.name}:
+                          </h1>
+                          {message.content.length > 50
+                            ? message.content.substring(0, 51) + "..."
+                            : message.content}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </Box>
             ))}
           </Stack>
