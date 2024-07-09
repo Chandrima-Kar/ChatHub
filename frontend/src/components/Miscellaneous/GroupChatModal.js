@@ -140,6 +140,7 @@ const GroupChatModal = ({ children }) => {
             <FormControl>
               <Input
                 placeholder="Chat Name"
+                textColor={"white"}
                 mb={3}
                 onChange={(e) => setGroupChatName(e.target.value)}
               />

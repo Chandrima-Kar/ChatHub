@@ -4,7 +4,7 @@ import { Box, Text } from "@chakra-ui/layout";
 import { IoSend } from "react-icons/io5";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import "./styles.css";
-import { IconButton, Spinner, useToast } from "@chakra-ui/react";
+import { Button, IconButton, Spinner, useToast } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../config/ChatLogics.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -73,7 +73,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   const sendMessage = async (event) => {
-    if (event.key === "Enter" && newMessage) {
+    if ((event.key === "Enter" || event.type === "click") && newMessage) {
+      console.log("Send message triggered");
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -216,6 +217,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               id="first-name"
               isRequired
               mt={3}
+              className="flex flex-row"
             >
               {istyping ? (
                 <div>
@@ -235,6 +237,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 placeholder="Enter a message.."
                 value={newMessage}
                 onChange={typingHandler}
+              />
+              <IconButton
+                className="flex"
+                bg="black"
+                color="white"
+                _hover={{ bg: "gray.700" }}
+                _active={{ bg: "gray.600" }}
+                icon={<IoSend />}
+                onClick={sendMessage}
               />
             </FormControl>
           </div>
