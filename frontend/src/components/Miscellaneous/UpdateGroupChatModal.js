@@ -245,6 +245,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
             <FormControl className="flex">
               <Input
                 placeholder="Chat Name"
+                textColor={"white"}
                 className="mb-3"
                 value={groupChatName}
                 onChange={(e) => setGroupChatName(e.target.value)}
