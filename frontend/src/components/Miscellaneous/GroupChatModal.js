@@ -132,16 +132,11 @@ const GroupChatModal = ({ children }) => {
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader
-            fontSize="35px"
-            fontFamily="Work sans"
-            d="flex"
-            justifyContent="center"
-          >
+          <ModalHeader className="text-sm font-ubuntu flex justify-center bg-[#010b14] text-white">
             Create Group Chat
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody d="flex" flexDir="column" alignItems="center">
+          <ModalBody className="flex flex-col items-center bg-black">
             <FormControl>
               <Input
                 placeholder="Chat Name"
@@ -180,7 +175,7 @@ const GroupChatModal = ({ children }) => {
                 ))
             )}
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter className="bg-[#010b14]">
             <Button onClick={handleSubmit} colorScheme="blue">
               Create Chat
             </Button>

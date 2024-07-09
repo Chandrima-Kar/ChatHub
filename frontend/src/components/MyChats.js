@@ -73,8 +73,12 @@ const MyChats = ({ fetchAgain }) => {
         My Chats
         <GroupChatModal>
           <Button
-            display="flex"
-            fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+            className="flex text-xl md:text-md lg:text-xl"
+            bg="[#010b14]"
+            color="white"
+            _hover={{ bg: "gray.700" }}
+            _active={{ bg: "gray.600" }}
+            _focus={{ boxShadow: "outline" }}
             rightIcon={<AddIcon />}
           >
             New Group Chat

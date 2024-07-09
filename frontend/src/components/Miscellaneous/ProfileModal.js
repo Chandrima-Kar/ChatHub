@@ -24,38 +24,30 @@ const ProfileModal = ({ user, children }) => {
       ) : (
         <IconButton d={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
       )}
-      <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal
+        size="md"
+        className=""
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+      >
         <ModalOverlay />
-        <ModalContent h="410px">
-          <ModalHeader
-            fontSize="40px"
-            fontFamily="Work sans"
-            d="flex"
-            justifyContent="center"
-          >
-            {user.name}
+        <ModalContent className="h-[350px]">
+          <ModalHeader className="flex justify-center bg-[#010b14]">
+            <div className="text-2xl font-roboto text-white">{user.name}</div>
           </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody
-            d="flex"
-            flexDir="column"
-            alignItems="center"
-            justifyContent="space-between"
-          >
+          <ModalCloseButton className="text-white" />
+          <ModalBody className="flex flex-col items-center justify-between bg-[#010b14] ">
             <Image
-              borderRadius="full"
-              boxSize="150px"
+              className="rounded-full w-36 h-36 object-cover "
               src={user.pic}
               alt={user.name}
             />
-            <Text
-              fontSize={{ base: "28px", md: "30px" }}
-              fontFamily="Work sans"
-            >
+            <div className="text-lg md:text-3xl font-semibold font-lato text-white tracking-wider">
               Email: {user.email}
-            </Text>
+            </div>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter className="bg-[#010b14]">
             <Button onClick={onClose}>Close</Button>
           </ModalFooter>
         </ModalContent>

@@ -1,6 +1,7 @@
 import { FormControl } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
+import { IoSend } from "react-icons/io5";
 import "./styles.css";
 import { IconButton, Spinner, useToast } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../config/ChatLogics";
@@ -70,8 +71,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
-  const sendMessage = async (event) => {
-    if (event.key === "Enter" && newMessage) {
+  const sendMessage = async () => {
+    if (newMessage) {
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -122,17 +123,17 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, [selectedChat]);
 
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
+    socket.on("message received", (newMessageReceived) => {
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
-        selectedChatCompare._id !== newMessageRecieved.chat._id
+        selectedChatCompare._id !== newMessageReceived.chat._id
       ) {
-        if (!notification.includes(newMessageRecieved)) {
-          setNotification([newMessageRecieved, ...notification]);
+        if (!notification.includes(newMessageReceived)) {
+          setNotification([newMessageReceived, ...notification]);
           setFetchAgain(!fetchAgain);
         }
       } else {
-        setMessages([...messages, newMessageRecieved]);
+        setMessages([...messages, newMessageReceived]);
       }
     });
   });
@@ -162,19 +163,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     <>
       {selectedChat ? (
         <>
-          <div
-            className="text-3xl md:text-2xl pb-1 px-1 w-full font-montserrat flex justify-between align-center text-white"
-            // fontSize={{ base: "28px", md: "30px" }}
-            // pb={3}
-            // px={2}
-            // w="100%"
-            // fontFamily="Work sans"
-            // d="flex"
-            // justifyContent={{ base: "space-between" }}
-            // alignItems="center"
-          >
+          <div className="text-3xl md:text-2xl pb-1 px-1 w-full font-montserrat flex justify-between align-center text-white">
             <IconButton
-              className="flex md:flex-none "
+              className="flex md:flex-none"
               icon={<ArrowBackIcon />}
               onClick={() => setSelectedChat("")}
             />
@@ -217,43 +208,40 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 margin="auto"
               />
             ) : (
-              <div className="messages">
+              <div className="messages overflow-y-auto flex-grow">
                 <ScrollableChat messages={messages} />
               </div>
             )}
-
-            <FormControl
-              onKeyDown={sendMessage}
-              id="first-name"
-              isRequired
-              mt={3}
-            >
-              {istyping ? (
-                <div>
-                  <Lottie
-                    options={defaultOptions}
-                    // height={50}
-                    width={70}
-                    style={{ marginBottom: 15, marginLeft: 0 }}
-                  />
-                </div>
-              ) : (
-                <></>
-              )}
-              <Input
-                variant="filled"
-                justifyContent={"flex-end"}
-                bg="black"
-                placeholder="Enter a message.."
-                textColor={"white"}
-                value={newMessage}
-                onChange={typingHandler}
+            <div className="mt-3 flex">
+              <FormControl className="fixed bottom-0">
+                {istyping ? (
+                  <div>
+                    <Lottie
+                      options={defaultOptions}
+                      width={70}
+                      style={{ marginBottom: 15, marginLeft: 0 }}
+                    />
+                  </div>
+                ) : null}
+                <Input
+                  variant="filled"
+                  justifyContent="flex-end"
+                  bg="black"
+                  placeholder="Enter a message.."
+                  textColor="white"
+                  value={newMessage}
+                  onChange={typingHandler}
+                />
+              </FormControl>
+              <IconButton
+                icon={<IoSend />} // Change this to a send icon
+                onClick={sendMessage}
+                className="ml-3"
               />
-            </FormControl>
+            </div>
           </Box>
         </>
       ) : (
-        // to get socket.io on same page
         <div className="flex items-center justify-center bg-black min-h-full">
           <div className="text-3xl pb-3 font-lato text-white">
             Click on a user to start chatting

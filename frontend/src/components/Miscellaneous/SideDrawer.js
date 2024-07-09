@@ -140,8 +140,26 @@ function SideDrawer() {
         // p="5px 10px 5px 10px"
         // borderWidth="5px"
       >
-        <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
-          <Button variant="ghost" onClick={onOpen}>
+        <Tooltip
+          label="Search Users to chat"
+          bg={"white"}
+          textColor={"black"}
+          hasArrow
+          placement="bottom-end"
+          _hover={{
+            bg: "black",
+            textColor: "white",
+          }}
+        >
+          <Button
+            variant="ghost"
+            _hover={{
+              bg: "#010b14",
+              color: "white",
+            }}
+            cursor="pointer"
+            onClick={onOpen}
+          >
             <i className="fas fa-search text-white"></i>
             <div className="p-2">
               <h1 className="text-lg font-ubuntu text-white">Search User</h1>
@@ -178,18 +196,32 @@ function SideDrawer() {
           <Menu>
             <MenuButton as={Button} bg="black" rightIcon={<ChevronDownIcon />}>
               <Avatar
-                size="sm"
+                size="xs"
+                className="bg-black"
+                _hover={{
+                  bg: "#010b14",
+                  color: "white",
+                }}
                 cursor="pointer"
                 name={user.name}
                 src={user.pic}
               />
             </MenuButton>
-            <MenuList>
+            <MenuList bg="#010b14">
               <ProfileModal user={user}>
-                <MenuItem>My Profile</MenuItem>{" "}
+                <MenuItem bg="#010b14" color="white" _hover={{ bg: "black" }}>
+                  My Profile
+                </MenuItem>
               </ProfileModal>
               <MenuDivider />
-              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              <MenuItem
+                bg="#010b14"
+                color="white"
+                _hover={{ bg: "black" }}
+                onClick={logoutHandler}
+              >
+                Logout
+              </MenuItem>
             </MenuList>
           </Menu>
         </div>
@@ -198,17 +230,23 @@ function SideDrawer() {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
-          <DrawerBody>
-            <Box d="flex" pb={2}>
+          <DrawerHeader className="bg-[#010b14] text-white">
+            Search Users
+          </DrawerHeader>
+          <DrawerBody className="bg-[#010b14]">
+            <div className="flex pb-2">
               <Input
                 placeholder="Search by name or email"
                 mr={2}
+                bg={"black"}
+                textColor={"white"}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <Button onClick={handleSearch}>Go</Button>
-            </Box>
+              <Button className="bg-white text-black" onClick={handleSearch}>
+                Go
+              </Button>
+            </div>
             {loading ? (
               <ChatLoading />
             ) : (
