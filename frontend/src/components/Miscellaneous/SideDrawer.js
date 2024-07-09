@@ -194,7 +194,15 @@ function SideDrawer() {
             </MenuList>
           </Menu>
           <Menu>
-            <MenuButton as={Button} bg="black" rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              as={Button}
+              className="flex"
+              bg="[#010b14]"
+              color="white"
+              _hover={{ bg: "gray.700" }}
+              _active={{ bg: "gray.600" }}
+              rightIcon={<ChevronDownIcon />}
+            >
               <Avatar
                 size="xs"
                 className="bg-black"

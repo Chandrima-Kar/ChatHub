@@ -1,4 +1,5 @@
 import { ViewIcon } from "@chakra-ui/icons";
+import { HiOutlineDotsVertical } from "react-icons/hi";
 import {
   Modal,
   ModalOverlay,
@@ -205,7 +206,17 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
   return (
     <>
-      <IconButton className="flex" icon={<ViewIcon />} onClick={onOpen} />
+      <IconButton
+        className="flex"
+        bg="[#010b14]"
+        color="white"
+        _hover={{ bg: "gray.700" }}
+        _active={{ bg: "gray.600" }}
+        icon={
+          <HiOutlineDotsVertical className="bg-gray.700 text-white w-6 h-6" />
+        }
+        onClick={onOpen}
+      />
 
       <Modal
         className="border-2 border-white"
