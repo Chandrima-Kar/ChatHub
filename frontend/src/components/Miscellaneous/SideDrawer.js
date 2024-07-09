@@ -130,7 +130,7 @@ function SideDrawer() {
   return (
     <>
       <div
-        className="flex flex-row justify-between  w-full px-2 py-4 border-2 border-white"
+        className="flex flex-row justify-between mx-10 mt-2 py-4 rounded-lg border-2 border-blue-400"
         // d="flex"
         // flexDir="Row"
         // justifyContent="space-between"
@@ -161,7 +161,7 @@ function SideDrawer() {
             onClick={onOpen}
           >
             <i className="fas fa-search text-white"></i>
-            <div className="p-2">
+            <div className="p-4">
               <h1 className="text-lg font-ubuntu text-white">Search User</h1>
             </div>
           </Button>

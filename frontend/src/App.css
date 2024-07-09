@@ -5,15 +5,12 @@
   display: flex;
   background-image: url("../src/backgroundImage.jpg");
 }
-::-webkit-scrollbar {
-  width: 0px;
+.element-class::-webkit-scrollbar {
+  display: none;
+}
+.element-class {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: 0.5px; /* Firefox */
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(136, 136, 136, 0.281);
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
+/* Hide scrollbar for Webkit-based browsers (Chrome, Safari) */

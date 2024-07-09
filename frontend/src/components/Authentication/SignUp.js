@@ -15,14 +15,14 @@ const Signup = () => {
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
-  const [confirmpassword, setConfirmpassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
   const [password, setPassword] = useState();
   const [pic, setPic] = useState();
   const [picLoading, setPicLoading] = useState(false);
 
   const submitHandler = async () => {
     setPicLoading(true);
-    if (!name || !email || !password || !confirmpassword) {
+    if (!name || !email || !password || !confirmPassword) {
       toast({
         title: "Please Fill all the Feilds",
         status: "warning",
@@ -33,7 +33,7 @@ const Signup = () => {
       setPicLoading(false);
       return;
     }
-    if (password !== confirmpassword) {
+    if (password !== confirmPassword) {
       toast({
         title: "Passwords Do Not Match",
         status: "warning",
@@ -100,9 +100,9 @@ const Signup = () => {
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const data = new FormData();
       data.append("file", pics);
-      data.append("upload_preset", "chat-app");
-      data.append("cloud_name", "piyushproj");
-      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
+      data.append("upload_preset", "chathub"); // Replace with your Cloudinary upload preset
+      data.append("cloud_name", "duvvl9zhr");
+      fetch("https://api.cloudinary.com/v1_1/duvvl9zhr/image/upload", {
         method: "post",
         body: data,
       })
@@ -167,7 +167,7 @@ const Signup = () => {
           <Input
             type={show ? "text" : "password"}
             placeholder="Confirm password"
-            onChange={(e) => setConfirmpassword(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>

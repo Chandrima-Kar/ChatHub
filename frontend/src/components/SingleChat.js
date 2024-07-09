@@ -2,14 +2,15 @@ import { FormControl } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
 import { IoSend } from "react-icons/io5";
+import { RiArrowGoBackLine } from "react-icons/ri";
 import "./styles.css";
 import { IconButton, Spinner, useToast } from "@chakra-ui/react";
-import { getSender, getSenderFull } from "../config/ChatLogics";
+import { getSender, getSenderFull } from "../config/ChatLogics.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import ProfileModal from "./Miscellaneous/ProfileModal";
-import ScrollableChat from "./ScrollableChat";
+import ScrollableChat from "./ScrollableChat.js";
 import Lottie from "react-lottie";
 import animationData from "../animations/typing.json";
 
@@ -71,8 +72,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
-  const sendMessage = async () => {
-    if (newMessage) {
+  const sendMessage = async (event) => {
+    if (event.key === "Enter" && newMessage) {
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -83,7 +84,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         };
         setNewMessage("");
         const { data } = await axios.post(
-          "/api/messages/",
+          "/api/messages",
           {
             content: newMessage,
             chatId: selectedChat,
@@ -123,17 +124,17 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, [selectedChat]);
 
   useEffect(() => {
-    socket.on("message received", (newMessageReceived) => {
+    socket.on("message recieved", (newMessageRecieved) => {
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
-        selectedChatCompare._id !== newMessageReceived.chat._id
+        selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
-        if (!notification.includes(newMessageReceived)) {
-          setNotification([newMessageReceived, ...notification]);
+        if (!notification.includes(newMessageRecieved)) {
+          setNotification([newMessageRecieved, ...notification]);
           setFetchAgain(!fetchAgain);
         }
       } else {
-        setMessages([...messages, newMessageReceived]);
+        setMessages([...messages, newMessageRecieved]);
       }
     });
   });
@@ -164,9 +165,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       {selectedChat ? (
         <>
           <div className="text-3xl md:text-2xl pb-1 px-1 w-full font-montserrat flex justify-between align-center text-white">
+            {" "}
             <IconButton
               className="flex md:flex-none"
-              icon={<ArrowBackIcon />}
+              bg="[#010b14]"
+              color="white"
+              _hover={{ bg: "gray.700" }}
+              _active={{ bg: "gray.600" }}
+              icon={
+                <RiArrowGoBackLine className="bg-gray.700 text-white w-6 h-6" />
+              }
               onClick={() => setSelectedChat("")}
             />
             {messages &&
@@ -188,17 +196,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 </>
               ))}
           </div>
-          <Box
-            d="flex"
-            flexDir="column"
-            justifyContent="flex-end"
-            p={3}
-            bg="#010b14"
-            w="100%"
-            h="88%"
-            borderRadius="lg"
-            overflowY="hidden"
-          >
+          <div className="flex flex-col justify-end p-3 bg-[#010b14] w-full h-[90%] rounded-lg overflow-y-hidden">
             {loading ? (
               <Spinner
                 size="xl"
@@ -208,40 +206,41 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 margin="auto"
               />
             ) : (
-              <div className="messages overflow-y-auto flex-grow">
+              <div className="messages overflow-y-scroll hide-scrollbar">
                 <ScrollableChat messages={messages} />
               </div>
             )}
-            <div className="mt-3 flex">
-              <FormControl className="fixed bottom-0">
-                {istyping ? (
-                  <div>
-                    <Lottie
-                      options={defaultOptions}
-                      width={70}
-                      style={{ marginBottom: 15, marginLeft: 0 }}
-                    />
-                  </div>
-                ) : null}
-                <Input
-                  variant="filled"
-                  justifyContent="flex-end"
-                  bg="black"
-                  placeholder="Enter a message.."
-                  textColor="white"
-                  value={newMessage}
-                  onChange={typingHandler}
-                />
-              </FormControl>
-              <IconButton
-                icon={<IoSend />} // Change this to a send icon
-                onClick={sendMessage}
-                className="ml-3"
+
+            <FormControl
+              onKeyDown={sendMessage}
+              id="first-name"
+              isRequired
+              mt={3}
+            >
+              {istyping ? (
+                <div>
+                  <Lottie
+                    options={defaultOptions}
+                    // height={50}
+                    width={70}
+                    style={{ marginBottom: 15, marginLeft: 0 }}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+              <Input
+                variant="filled"
+                bg="black"
+                placeholder="Enter a message.."
+                value={newMessage}
+                onChange={typingHandler}
               />
-            </div>
-          </Box>
+            </FormControl>
+          </div>
         </>
       ) : (
+        // to get socket.io on same page
         <div className="flex items-center justify-center bg-black min-h-full">
           <div className="text-3xl pb-3 font-lato text-white">
             Click on a user to start chatting

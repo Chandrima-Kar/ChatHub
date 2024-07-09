@@ -24,21 +24,10 @@ function Homepage() {
 
   return (
     <Container maxW="xl" centerContent>
-      <Box
-        d="flex"
-        justifyContent="center"
-        p={3}
-        bg="white"
-        w="100%"
-        m="40px 0 15px 0"
-        borderRadius="lg"
-        borderWidth="1px"
-      >
-        <Text fontSize="4xl" fontFamily="Work sans">
-          Talk-A-Tive
-        </Text>
-      </Box>
-      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
+      <div className="flex justify-center p-3 bg-white w-full my-0 ml-10 mr-4 rounded-lg border-1">
+        <div className="text-4xl font-montserrat">ChatHub</div>
+      </div>
+      <div className="bg-white w-full p-4 rounded-lg border-1">
         <Tabs isFitted variant="soft-rounded">
           <TabList mb="1em">
             <Tab>Login</Tab>
@@ -53,7 +42,7 @@ function Homepage() {
             </TabPanel>
           </TabPanels>
         </Tabs>
-      </Box>
+      </div>
     </Container>
   );
 }

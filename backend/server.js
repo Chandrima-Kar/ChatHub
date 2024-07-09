@@ -12,7 +12,7 @@ dotenv.config({
 connectDB();
 const app = express();
 
-app.use(express.json()); //to accept JSON data
+app.use(express.json()); // to accept JSON data
 
 app.get("/", (req, res) => {
   res.send("Hellllllllo");

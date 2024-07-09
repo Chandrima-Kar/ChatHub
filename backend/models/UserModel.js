@@ -20,7 +20,7 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: true,
       default:
-        "https://static.vecteezy.com/system/resources/previews/024/983/914/original/simple-user-default-icon-free-png.png",
+        "https://isobarscience-1bfd8.kxcdn.com/wp-content/uploads/2020/09/default-profile-picture1.jpg",
     },
   },
   {

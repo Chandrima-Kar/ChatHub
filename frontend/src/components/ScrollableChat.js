@@ -7,13 +7,14 @@ import {
   isSameSenderMargin,
   isSameUser,
 } from "../config/ChatLogics";
+import "./styles.css";
 import { ChatState } from "../Context/ChatProvider";
 
 const ScrollableChat = ({ messages }) => {
   const { user } = ChatState();
 
   return (
-    <ScrollableFeed>
+    <ScrollableFeed className="overflow-y-hidden">
       {messages &&
         messages.map((m, i) => (
           <div style={{ display: "flex" }} key={m._id}>

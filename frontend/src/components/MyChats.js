@@ -49,31 +49,26 @@ const MyChats = ({ fetchAgain }) => {
   }, [fetchAgain, user]);
 
   return (
-    <Box
-      display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
-      flexDirection="column"
-      alignItems="center"
-      p={3}
-      bg="black"
-      w={{ base: "100%", md: "31%" }}
-      borderRadius="lg"
-      borderWidth="1px"
+    <div
+      className={`flex flex-col items-center p-3 bg-black rounded-lg border border-gray-700
+      ${selectedChat ? "hidden md:flex" : "flex"} md:w-[31%] w-full`}
     >
-      <Box
-        pb={3}
-        px={4}
-        fontSize={{ base: "28px", md: "30px" }}
-        fontFamily="Work sans"
-        display="flex"
-        w="100%"
-        justifyContent="space-between"
-        alignItems="center"
-        textColor={"white"}
+      <div
+        className="pb-4 px-4 text-2xl md:text-3xl font-ubuntu w-full justify-between items-center text-white"
+        // pb={3}
+        // px={4}
+        // fontSize={{ base: "28px", md: "30px" }}
+        // fontFamily="Work sans"
+        // display="flex"
+        // w="100%"
+        // justifyContent="space-between"
+        // alignItems="center"
+        // textColor={"white"}
       >
         My Chats
         <GroupChatModal>
           <Button
-            className="flex text-xl md:text-md lg:text-xl"
+            className="flex text-xl md:text-sm lg:text-xl border-2 border-blue-500 xl:ml-10 mt-5 xl:mt-0 font-roboto"
             bg="[#010b14]"
             color="white"
             _hover={{ bg: "gray.700" }}
@@ -84,19 +79,29 @@ const MyChats = ({ fetchAgain }) => {
             New Group Chat
           </Button>
         </GroupChatModal>
-      </Box>
-      <Box
-        display="flex"
-        flexDirection="column"
-        p={3}
-        bg="black"
-        w="100%"
-        h="100%"
-        borderRadius="lg"
-        overflowY="hidden"
+      </div>
+      <div
+        className="flex flex-col bg-[#010b14] p-3 w-full h-full rounded-lg overflow-y-hidden"
+        // display="flex"
+        // flexDirection="column"
+        // p={3}
+        // bg="black"
+        // w="100%"
+        // h="100%"
+        // borderRadius="lg"
+        // overflowY="hidden"
       >
         {chats ? (
-          <Stack overflowY="scroll">
+          <Stack
+            overflowY="scroll"
+            sx={{
+              "::-webkit-scrollbar": {
+                display: "none",
+              },
+              "-ms-overflow-style": "none" /* IE and Edge */,
+              "scrollbar-width": "none" /* Firefox */,
+            }}
+          >
             {chats.map((chat) => (
               <Box
                 onClick={() => setSelectedChat(chat)}
@@ -127,8 +132,8 @@ const MyChats = ({ fetchAgain }) => {
         ) : (
           <ChatLoading />
         )}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 
