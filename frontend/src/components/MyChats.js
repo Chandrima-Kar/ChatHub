@@ -67,7 +67,7 @@ const MyChats = ({ fetchAgain }) => {
           </Button>
         </GroupChatModal>
       </div>
-      <div className="flex flex-col bg-[#010b14] p-3 w-full h-full rounded-lg overflow-y-hidden">
+      <div className="flex flex-col bg-[#010b14] p-3 w-full h-full rounded-lg overflow-y-hidden ">
         {chats ? (
           <Stack
             overflowY="scroll"
@@ -88,6 +88,8 @@ const MyChats = ({ fetchAgain }) => {
                 px={3}
                 py={2}
                 borderRadius="lg"
+                borderColor={"lightblue"}
+                borderWidth={"2px"}
                 key={chat._id}
               >
                 <div className="flex flex-col">
