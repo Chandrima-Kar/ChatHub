@@ -22,6 +22,7 @@ import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
 import UserListItem from "../userAvatar/UserListItem";
+import { Avatar } from "@chakra-ui/react";
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -232,6 +233,26 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
           <ModalCloseButton />
           <ModalBody className="flex flex-col items-center bg-black">
+            <>
+              {selectedChat.groupAdmin.map((user) => (
+                <div key={user._id} className="flex flex-row gap-x-2 py-4">
+                  <div className="text-white font-montserrat">Admin: </div>
+                  <h1 className="text-md font-roboto text-blue-500 font-semibold">
+                    {user.name}
+                  </h1>
+                  <Avatar
+                    boxSize="17px"
+                    className="bg-black mt-1"
+                    _hover={{
+                      bg: "#010b14",
+                      color: "white",
+                    }}
+                    cursor="pointer"
+                    src={user.pic}
+                  />
+                </div>
+              ))}
+            </>
             <div className="w-full flex flex-wrap pb-3">
               {selectedChat.users.map((u) => (
                 <UserBadgeItem
