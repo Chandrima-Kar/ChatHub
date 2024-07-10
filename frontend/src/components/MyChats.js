@@ -4,12 +4,11 @@ import { useToast } from "@chakra-ui/toast";
 import { FaUserGroup } from "react-icons/fa6";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { getSender } from "../config/ChatLogics";
+import { getSender, getSenderPic } from "../config/ChatLogics";
 import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./Miscellaneous/GroupChatModal.js";
-import { Button } from "@chakra-ui/react";
+import { Button, Avatar } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
-import { Avatar } from "@chakra-ui/react";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState(null);
@@ -93,11 +92,24 @@ const MyChats = ({ fetchAgain }) => {
               >
                 <div className="flex flex-col">
                   {!chat.isGroupChat ? (
-                    getSender(loggedUser, chat.users)
+                    <div className="flex flex-row gap-x-2 mb-2">
+                      <Avatar
+                        boxSize="20px"
+                        className="bg-black mt-1"
+                        _hover={{
+                          bg: "#010b14",
+                          color: "white",
+                        }}
+                        cursor="pointer"
+                        src={getSenderPic(loggedUser, chat.users)}
+                      />
+                      <h1 className="font-ubuntu">
+                        {getSender(loggedUser, chat.users)}
+                      </h1>
+                    </div>
                   ) : (
                     <div className="flex flex-row">
                       {chat.chatName}
-
                       <FaUserGroup className="mt-1 ml-2" />
                     </div>
                   )}
@@ -109,7 +121,7 @@ const MyChats = ({ fetchAgain }) => {
                           className="flex flex-row gap-x-2"
                         >
                           <Avatar
-                            size="xs"
+                            boxSize="20px"
                             className="bg-black"
                             _hover={{
                               bg: "#010b14",

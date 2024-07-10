@@ -1,4 +1,5 @@
 import { ViewIcon } from "@chakra-ui/icons";
+import { MdOutlineEdit } from "react-icons/md";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import {
   Modal,
@@ -17,6 +18,8 @@ import {
 
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const EditProfile = () => {};
 
   return (
     <>
@@ -54,11 +57,22 @@ const ProfileModal = ({ user, children }) => {
               src={user.pic}
               alt={user.name}
             />
-            <div className="text-lg md:text-3xl font-semibold font-lato text-white tracking-wider">
+            <div className="text-lg md:text-xl font-semibold font-lato text-white tracking-wider">
               Email: {user.email}
             </div>
           </ModalBody>
-          <ModalFooter className="bg-[#010b14]">
+          <ModalFooter className="bg-[#010b14] flex flex-row gap-x-52">
+            <Button
+              bg={"black"}
+              textColor={"white"}
+              _hover={{ bg: "gray.700" }}
+              _active={{ bg: "gray.600" }}
+              className="font-ubuntu"
+              onClick={EditProfile}
+            >
+              Edit Profile
+              <MdOutlineEdit className="w-12 h-12" />
+            </Button>
             <Button onClick={onClose}>Close</Button>
           </ModalFooter>
         </ModalContent>

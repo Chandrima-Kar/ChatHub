@@ -13,9 +13,10 @@ import ProfileModal from "./Miscellaneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat.js";
 import Lottie from "react-lottie";
 import animationData from "../animations/typing.json";
-
+import { BsChatQuoteFill } from "react-icons/bs";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./Miscellaneous/UpdateGroupChatModal";
+
 import { ChatState } from "../Context/ChatProvider";
 const ENDPOINT = "http://localhost:8000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
@@ -94,6 +95,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         );
         socket.emit("new message", data);
         setMessages([...messages, data]);
+        setFetchAgain(!fetchAgain);
       } catch (error) {
         toast({
           title: "Error Occured!",
@@ -253,7 +255,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       ) : (
         // to get socket.io on same page
         <div className="flex items-center justify-center bg-black min-h-full">
-          <div className="text-3xl pb-3 font-lato text-white">
+          <div className="text-3xl pb-3 font-lato text-white flex flex-col gap-y-5">
+            <BsChatQuoteFill className="w-20 h-20 text-white ml-36" />
             Click on a user to start chatting
           </div>
         </div>
