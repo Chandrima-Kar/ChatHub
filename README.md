@@ -1,7 +1,7 @@
 
 # ChatHub
 
-## Celebal Technologies - React JS Summer Internship Final Project
+### Celebal Technologies - Node JS Summer Internship Final Project
 
 Chat Application
 
