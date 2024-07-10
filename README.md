@@ -1,6 +1,8 @@
 
 # ChatHub
 
+## Celebal Technologies - React JS Summer Internship Final Project
+
 Chat Application
 
 This chat demonstrates real-time message transferring from one source to another. The process starts with the client sending regular HTTP requests to the server. With the knowledge of web sockets and socket.io, it becomes easy to code. The real-time communication support feature of NodeJS can be used here. Here, the messages get updated without refreshing the page which can be done using routers. Socket.io can be used to build real-time applications which can be used to receive and send messages. The use of mongoose provides a lot of convenience in the creation and management of data in ongoDB. Moment helps you manipulate and format dates in JavaScript. Moreover, this application represents Messenger.
