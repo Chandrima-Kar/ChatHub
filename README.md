@@ -17,7 +17,7 @@ https://github.com/Chandrima-Kar/ChatHub/assets/138314529/f6242617-7bde-4e36-b25
 ## Features
 
 - One-to-one chat and group chat
-- Add and remove users from group (only for admin)
+- Add and remove users from group and update group name (only for admin)
 - Real-time messaging without refreshing the page( Real-time data transfer)
 - Signup, Login and Logout
 
